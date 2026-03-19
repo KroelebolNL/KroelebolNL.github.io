@@ -11,41 +11,51 @@ async function updateStatus() {
         const label = document.getElementById('status-label');
         const statusBox = document.querySelector('.status-box');
 
-        if (!dot || !text || !label) return;
-
         if (json.success) {
             const data = json.data;
             const status = data.discord_status;
-            
             const colors = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
             const currentColor = colors[status] || colors.offline;
-            dot.style.backgroundColor = currentColor;
-            dot.style.boxShadow = `0 0 10px ${currentColor}`;
-            label.textContent = status.toUpperCase();
 
-            // Fade Effect voor tekstverandering
-            text.classList.add('fade-out');
+            if (dot) {
+                dot.style.backgroundColor = currentColor;
+                dot.style.boxShadow = `0 0 10px ${currentColor}`;
+            }
+            if (label) label.textContent = status.toUpperCase();
 
-            setTimeout(() => {
-                if (data.listening_to_spotify && data.spotify) {
-                    const song = data.spotify.song || data.spotify.track || "A song";
-                    const artist = data.spotify.artist || "Unknown Artist";
-                    text.textContent = `Listening to ${song} by ${artist}`;
-
-                    if (statusBox && data.spotify.album_art_url) {
-                        statusBox.style.backgroundImage = `linear-gradient(rgba(30, 27, 36, 0.9), rgba(30, 27, 36, 0.9)), url('${data.spotify.album_art_url}')`;
-                        statusBox.style.backgroundSize = 'cover';
-                        statusBox.style.backgroundPosition = 'center';
+            if (text) {
+                text.classList.add('fade-out');
+                setTimeout(() => {
+                    // --- SPOTIFY LOGICA ---
+                    if (data.listening_to_spotify && data.spotify) {
+                        text.textContent = `Listening to ${data.spotify.song || data.spotify.track} by ${data.spotify.artist}`;
+                        
+                        if (statusBox) {
+                            // Achtergrond instellen
+                            statusBox.style.backgroundImage = `linear-gradient(rgba(30, 27, 36, 0.9), rgba(30, 27, 36, 0.9)), url('${data.spotify.album_art_url}')`;
+                            statusBox.style.backgroundSize = 'cover';
+                            
+                            // NIEUW: Maak de box klikbaar
+                            statusBox.classList.add('is-listening');
+                            statusBox.onclick = () => {
+                                window.open(`https://open.spotify.com/track/${data.spotify.track_id}`, '_blank');
+                            };
+                        }
+                    } else {
+                        // --- GEEN SPOTIFY ---
+                        if (statusBox) {
+                            statusBox.style.backgroundImage = 'none';
+                            statusBox.classList.remove('is-listening');
+                            statusBox.onclick = null; // Verwijder de klik-functie
+                        }
+                        const custom = data.activities.find(a => a.type === 4);
+                        text.textContent = (custom && custom.state) ? `"${custom.state}"` : "Expert at doing nothing.";
                     }
-                } else {
-                    if (statusBox) statusBox.style.backgroundImage = 'none';
-                    const custom = data.activities.find(a => a.type === 4);
-                    text.textContent = (custom && custom.state) ? `"${custom.state}"` : "Expert at doing nothing.";
-                }
-                text.classList.remove('fade-out');
-            }, 400); 
+                    text.classList.remove('fade-out');
+                }, 400);
+            }
         }
-    } catch (e) { console.error("Lanyard error:", e); }
+    } catch (e) { console.error(e); }
 }
 
 function updateClock() {
