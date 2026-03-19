@@ -35,17 +35,26 @@ body {
 @media (min-width: 768px) {
     .bento-grid {
         grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto auto; /* Drie rijen */
         grid-template-areas: 
             "profile profile bio"
             "profile profile status"
-            "gallery socials quotes"; /* Drie gelijke kolommen onderin */
+            "gallery socials quotes"; /* Alles op één lijn onderin */
     }
-    .profile-box { grid-area: profile; }
-    .bio-box { grid-area: bio; }
-    .status-box { grid-area: status; }
-    .socials-box { grid-area: socials; }
-    .gallery-box { grid-area: gallery; }
-    .quotes-box { grid-area: quotes; }
+}
+
+/* Zorg dat de boxen hun plek opeisen */
+.profile-box { grid-area: profile; }
+.bio-box { grid-area: bio; }
+.status-box { grid-area: status; }
+.gallery-box { grid-area: gallery; }
+.socials-box { grid-area: socials; }
+.quotes-box { grid-area: quotes; }
+
+/* Kleine tweak voor de socials: knoppen onder elkaar */
+.socials-box .link-buttons {
+    flex-direction: column;
+    grid-template-columns: 1fr;
 }
 
 /* --- GLASSMORPHISM --- */
