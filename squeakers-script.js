@@ -66,10 +66,10 @@ function updateClock() {
 // --- 3. GALLERY SLIDESHOW ---
 // Add Squeakers' actual image paths here!
 const galleryImages = [
-    "./assets/images/squeakers-main.jpg",
-    "./assets/images/squeakers-2.jpg",
-    "./assets/images/squeakers-3.jpg",
-    "./assets/images/squeakers-4.jpg"
+    "./assets/images/squeakers-standing.jpg",
+    "./assets/images/squeakers-pose.jpg",
+    "./assets/images/squeakers-chill.jpg",
+    "./assets/images/squeakers-beautiful.jpg"
 ];
 let currentGalleryIndex = 0;
 const galleryTarget = document.getElementById('gallery-target');
