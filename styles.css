@@ -1,14 +1,29 @@
 :root {
+    /* Byte Standaard Kleuren */
     --bg-color: #1E1B24;
     --glass-bg: rgba(60, 50, 55, 0.45);
     --glass-border: rgba(255, 255, 255, 0.08);
-    --accent-glow: #C774E8;
+    --accent-glow: #C774E8; /* Dynamisch */
     --text-primary: #F2E8D2;
     --text-muted: #A59EAD;
+    
+    /* IJzige Stijl Variabelen (worden geactiveerd door .ice-style class) */
+    --ice-bg-color: #051937; /* Diep donkerblauw */
+    --ice-glass-bg: rgba(200, 230, 255, 0.2); /* Lichtblauw/wit doorschijnend */
+    --ice-glass-border: rgba(255, 255, 255, 0.4); /* Sterkere witte rand */
+    --ice-accent-glow: #A0FEFE; /* Neon cyaan voor 'Status' en tijd */
+    --ice-accent-purple: #D0A0FF; /* Lichtpaars voor Vibe/Thoughts/Local Time labels */
+    --ice-text-primary: #FFFFFF; /* Puur wit */
+    --ice-text-muted: #C0D0E0; /* Koel grijsblauw */
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
+/* --- BASIS LAYOUT --- */
 body {
     background-color: var(--bg-color);
     background-image: radial-gradient(circle at 50% 0%, #3a2e42 0%, var(--bg-color) 80%);
@@ -20,17 +35,56 @@ body {
     align-items: center;
     padding: 20px;
     overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Scroll-fix (Nieuw) */
+/* --- ACTIVERING VAN IJZIGE STIJL --- */
+body.ice-style {
+    background-color: var(--ice-bg-color);
+    background-image: radial-gradient(circle at 50% 0%, #1a3a62 0%, var(--ice-bg-color) 80%);
+    color: var(--ice-text-primary);
+}
+
+/* Scroll-fix voor desktop vs mobiel */
 @media (min-width: 768px) {
     body { overflow: hidden; height: 100vh; }
 }
 @media (max-width: 767px) {
-    body { overflow-y: auto; align-items: flex-start; }
+    body { overflow-y: auto; align-items: flex-start; padding-top: 80px; }
 }
 
-/* --- BENTO GRID LOGIC --- */
+/* --- SWITCH BUTTON --- */
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px !important;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 0.8rem;
+    z-index: 1000;
+    flex-direction: row !important;
+    gap: 10px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+}
+
+.toggle-btn:hover {
+    border-color: var(--accent-glow) !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.ice-style .toggle-btn {
+    color: var(--ice-text-primary);
+    border-color: var(--ice-glass-border);
+    background: var(--ice-glass-bg);
+    backdrop-filter: blur(10px);
+}
+
+/* --- BENTO GRID --- */
 .bento-grid {
     display: grid;
     gap: 1.5rem;
@@ -38,12 +92,6 @@ body {
     max-width: 900px;
     z-index: 10;
     grid-template-columns: 1fr;
-}
-
-.gallery-box {
-    padding: 0 !important; /* Haalt de padding weg zodat de foto de rand raakt */
-    overflow: hidden;      /* Zorgt dat de foto binnen de ronde hoeken blijft */
-    display: flex;         /* Verwijdert witruimte onder de afbeelding */
 }
 
 @media (min-width: 768px) {
@@ -64,7 +112,7 @@ body {
     .extra-box { grid-area: extra; }
 }
 
-/* --- GLASS STYLE --- */
+/* --- GLASS EFFECT & IJZIG EFFECT --- */
 .glass {
     background: var(--glass-bg);
     border-radius: 32px;
@@ -81,61 +129,124 @@ body {
 .glass:hover {
     transform: scale(1.02);
     border-color: var(--accent-glow);
-    box-shadow: 0 0 25px rgba(199, 116, 232, 0.2);
+    box-shadow: 0 0 25px rgba(199, 116, 232, 0.15);
 }
 
-/* --- IMAGES & TRANSITIONS --- */
-.profile-img { 
-    height: 280px; width: 100%; border-radius: 20px; 
-    object-fit: cover; object-position: center 20%; margin-bottom: 1.5rem;
+/* IJzige stijl toepassen */
+body.ice-style .glass {
+    background: var(--ice-glass-bg);
+    border: 2px solid var(--ice-glass-border);
+    box-shadow: 0 0 15px rgba(160, 254, 254, 0.2); /* Cyaan gloed */
+    backdrop-filter: blur(15px);
 }
+
+body.ice-style .glass:hover {
+    border-color: var(--ice-accent-glow);
+    box-shadow: 0 0 30px rgba(160, 254, 254, 0.4);
+}
+
+/* --- AFBEELDINGEN --- */
+.profile-img { 
+    height: 280px; 
+    width: 100%; 
+    border-radius: 20px; 
+    object-fit: cover; 
+    object-position: center 20%; 
+    margin-bottom: 1.5rem;
+    transition: opacity 0.5s ease;
+}
+
+.gallery-box {
+    padding: 0 !important;
+    overflow: hidden;
+    display: flex;
+}
+
 .gallery-img { 
     height: 100%; 
     width: 100%; 
     object-fit: cover; 
-    border-radius: 0;      /* We gebruiken de border-radius van de box zelf nu */
     min-height: 300px; 
     transition: opacity 0.5s ease;
-    transform: scale(1.01); /* Een piepkleine zoom om dat witte lijntje te overlappen */
+    transform: scale(1.01);
 }
 
-/* TYPOGRAPHY */
-h1 { font-size: 3rem; font-weight: 900; }
-h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+/* --- TYPOGRAFIE --- */
+h1 { font-size: 3rem; font-weight: 900; transition: color 0.3s; }
+h2 { 
+    font-size: 1.1rem; 
+    color: var(--accent-glow); 
+    margin-bottom: 12px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    transition: color 0.3s;
+}
 .subtext { color: var(--text-muted); font-size: 0.8rem; }
+.pronouns { font-weight: 700; color: var(--text-muted); letter-spacing: 2px; }
 
-/* --- STATUS & FADE --- */
+/* IJzige typografie */
+body.ice-style h1 { color: var(--ice-text-primary); }
+body.ice-style h2 { color: var(--ice-accent-purple); } /* Paars voor labels */
+body.ice-style .subtext { color: var(--ice-text-muted); }
+body.ice-style .pronouns { color: var(--ice-text-muted); }
+
+/* Uitzonderingen voor specifieke labels in ice-style */
+body.ice-style .status-box h2 { color: var(--ice-accent-glow); } /* Cyaan voor status label */
+body.ice-style .extra-box h2 { color: var(--ice-accent-purple); } /* Paars voor local time label */
+
+/* --- STATUS & KLOK --- */
 #discord-status-text { transition: opacity 0.4s ease; margin-bottom: 5px; min-height: 1.2em; }
 .status-row { display: flex; align-items: center; gap: 10px; margin-top: auto; }
 .status-indicator { width: 12px; height: 12px; border-radius: 50%; animation: pulse-glow 2s infinite; }
 
 .main-time { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
 .main-time span { animation: blink 2s infinite; }
-.sub-time { font-size: 0.9rem; color: var(--accent-glow); font-weight: 700; text-transform: uppercase; }
+.sub-time { font-size: 0.9rem; color: var(--accent-glow); font-weight: 700; text-transform: uppercase; transition: color 0.3s; }
 
-/* FADE CLASSES VOOR JS */
-.fade-out { opacity: 0; }
-.fade-in { opacity: 1; }
+/* IJzige status & klok */
+body.ice-style .sub-time { color: var(--ice-accent-purple); } /* Paars voor AM/PM */
+body.ice-style .main-time { color: #A0FEFE; text-shadow: 0 0 10px rgba(160, 254, 254, 0.5); } /* Neon Cyaan tijd */
 
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-@keyframes pulse-glow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
-
-/* --- SOCIALS --- */
+/* --- SOCIAL BUTTONS --- */
 .link-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
 .social-btn {
     display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05);
     color: var(--text-primary); text-decoration: none; padding: 12px 15px; border-radius: 18px;
     font-weight: 700; font-size: 0.9rem; border: 1px solid var(--glass-border); transition: 0.3s;
 }
-.social-btn:hover { background: rgba(199, 116, 232, 0.15); border-color: var(--accent-glow); transform: translateX(5px); }
-
-/* --- THOUGHTS --- */
-.quote-text {
-    font-style: italic; font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px;
-    transition: opacity 0.5s ease; /* NIEUW: Voor vloeiende wissel */
+.social-btn:hover { 
+    background: rgba(255, 255, 255, 0.08); 
+    border-color: var(--accent-glow); 
+    transform: translateX(5px); 
+    color: var(--accent-glow);
 }
 
-/* --- BUBBLES --- */
+/* IJzige socials */
+body.ice-style .social-btn {
+    color: var(--ice-text-primary);
+    border-color: var(--ice-glass-border);
+    background: rgba(200, 230, 255, 0.1);
+}
+
+body.ice-style .social-btn:hover {
+    border-color: var(--ice-accent-glow);
+    background: rgba(160, 254, 254, 0.15);
+    color: var(--ice-accent-glow);
+}
+
+/* --- QUOTES --- */
+.quote-text {
+    font-style: italic; font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px;
+    transition: opacity 0.5s ease;
+}
+
+/* --- ANIMATIES --- */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes pulse-glow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+
+.fade-out { opacity: 0; }
+
+/* --- BUBBELS OP ACHTERGROND (Byte) --- */
 .bubble-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .bubble {
     position: absolute; bottom: -150px; border-radius: 50%; 
@@ -148,31 +259,50 @@ h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 12px; text-tra
 .bubble:nth-child(3) { width: 150px; height: 150px; left: 80%; animation-delay: 12s; }
 .bubble:nth-child(4) { width: 250px; height: 250px; left: 20%; animation-delay: 18s; }
 
-.status-box.is-listening {
-    cursor: pointer;
+/* --- SNEEUW OP ACHTERGROND (Squeakers) --- */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
 }
 
-.status-box.is-listening:active {
-    transform: scale(0.98); /* Kleine "klik" animatie */
+.snowflake {
+    position: absolute;
+    top: -10px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snow Fall linear infinite;
 }
-/* Schakel selecteren en slepen uit voor de hele site */
+
+@keyframes Fall {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(105vh) translateX(20px); }
+}
+
+/* --- EXTRA SECURITY / UI --- */
 html, body {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none;     /* IE 10 en Edge */
-    user-select: none;         /* Standaard (Chrome, Firefox, etc.) */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-/* Zorg dat afbeeldingen niet gesleept kunnen worden */
 img {
     -webkit-user-drag: none;
     user-drag: none;
-    pointer-events: none; /* Dit voorkomt ook dat mensen rechtsklikken om op te slaan */
+    pointer-events: none;
 }
 
-/* OPTIONEEL: Wil je dat bepaalde tekst (zoals je Discord naam of links) WEL kopieerbaar blijft? */
-/* Voeg dan de class 'selectable' toe aan die elementen in HTML en gebruik dit: */
 .selectable {
     -webkit-user-select: text;
     user-select: text;
     pointer-events: auto;
 }
+
+.status-box.is-listening { cursor: pointer; }
+.status-box.is-listening:active { transform: scale(0.98); }
