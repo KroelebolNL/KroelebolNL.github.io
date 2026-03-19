@@ -260,6 +260,7 @@ body.ice-style .social-btn:hover {
 .bubble:nth-child(4) { width: 250px; height: 250px; left: 20%; animation-delay: 18s; }
 
 /* --- SNEEUW OP ACHTERGROND (Squeakers) --- */
+/* Zorg dat de container zichtbaar is en over het hele scherm gaat */
 .snow-container {
     position: fixed;
     top: 0;
@@ -267,22 +268,25 @@ body.ice-style .social-btn:hover {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 0;
+    z-index: 0; /* Onder de bento grid */
     overflow: hidden;
 }
 
+/* De sneeuwvlok stijl */
 .snowflake {
     position: absolute;
-    top: -10px;
-    background: #fff;
+    top: -10px; /* Start net boven het scherm */
+    background: #FFFFFF; /* Puur wit */
     border-radius: 50%;
     opacity: 0.8;
-    animation: snow Fall linear infinite;
+    display: block;
+    pointer-events: none;
 }
 
+/* De val-animatie */
 @keyframes Fall {
     0% { transform: translateY(0) translateX(0); }
-    100% { transform: translateY(105vh) translateX(20px); }
+    100% { transform: translateY(110vh) translateX(30px); } /* Valt iets verder en schuiner */
 }
 
 /* --- EXTRA SECURITY / UI --- */
