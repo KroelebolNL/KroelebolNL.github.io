@@ -1,1 +1,144 @@
+:root {
+    --bg-color: #0a1628;
+    --glass-bg: rgba(30, 55, 90, 0.45);
+    --glass-border: rgba(160, 210, 255, 0.1);
+    --accent-glow: #78C8FF;
+    --text-primary: #E8F4FF;
+    --text-muted: #7AAFC8;
+}
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 0%, #0e2a4a 0%, var(--bg-color) 80%);
+    color: var(--text-primary);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+@media (min-width: 768px) { body { overflow: hidden; height: 100vh; } }
+@media (max-width: 767px) { body { overflow-y: auto; align-items: flex-start; } }
+
+.bento-grid {
+    display: grid; gap: 1.5rem;
+    width: 100%; max-width: 900px;
+    z-index: 10; grid-template-columns: 1fr;
+}
+
+.gallery-box { padding: 0 !important; overflow: hidden; display: flex; }
+
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "profile profile bio"
+            "profile profile status"
+            "gallery socials quotes"
+            "gallery socials extra";
+    }
+    .profile-box { grid-area: profile; }
+    .bio-box     { grid-area: bio; }
+    .status-box  { grid-area: status; }
+    .gallery-box { grid-area: gallery; grid-row: span 2; }
+    .socials-box { grid-area: socials; grid-row: span 2; }
+    .quotes-box  { grid-area: quotes; }
+    .extra-box   { grid-area: extra; }
+}
+
+.glass {
+    background: var(--glass-bg);
+    border-radius: 32px; padding: 2rem;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px rgba(0, 20, 50, 0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; flex-direction: column;
+}
+.glass:hover {
+    transform: scale(1.02);
+    border-color: var(--accent-glow);
+    box-shadow: 0 0 25px rgba(120, 200, 255, 0.2);
+}
+
+.profile-img {
+    height: 280px; width: 100%; border-radius: 20px;
+    object-fit: cover; object-position: center 20%; margin-bottom: 1.5rem;
+}
+.gallery-img {
+    height: 100%; width: 100%; object-fit: cover;
+    border-radius: 0; min-height: 300px;
+    transition: opacity 0.5s ease; transform: scale(1.01);
+}
+
+h1 { font-size: 2.2rem; font-weight: 900; line-height: 1.1; }
+h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.subtext { color: var(--text-muted); font-size: 0.8rem; }
+.pronouns { color: var(--text-muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-top: 4px; }
+
+.profile-name-link { text-decoration: none; color: inherit; display: block; transition: opacity 0.2s; }
+.profile-name-link:hover { opacity: 0.75; }
+.home-hint {
+    display: block; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 2px; color: var(--accent-glow);
+    text-transform: uppercase; margin-top: 2px;
+    opacity: 0; transition: opacity 0.2s;
+}
+.profile-name-link:hover .home-hint { opacity: 1; }
+
+#discord-status-text { transition: opacity 0.4s ease; margin-bottom: 5px; min-height: 1.2em; }
+.status-row { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+.status-indicator { width: 12px; height: 12px; border-radius: 50%; animation: pulse-glow 2s infinite; }
+
+.main-time { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+.main-time span { animation: blink 2s infinite; }
+.sub-time { font-size: 0.9rem; color: var(--accent-glow); font-weight: 700; text-transform: uppercase; }
+.time-container { margin-bottom: 6px; }
+
+.fade-out { opacity: 0; }
+.fade-in  { opacity: 1; }
+
+@keyframes blink      { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes pulse-glow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+
+.link-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.social-btn {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(120, 200, 255, 0.05); color: var(--text-primary);
+    text-decoration: none; padding: 12px 15px; border-radius: 18px;
+    font-weight: 700; font-size: 0.9rem;
+    border: 1px solid var(--glass-border); transition: 0.3s;
+}
+.social-btn:hover { background: rgba(120, 200, 255, 0.15); border-color: var(--accent-glow); transform: translateX(5px); }
+
+.quote-text { font-style: italic; font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px; transition: opacity 0.5s ease; }
+
+.status-box.is-listening { cursor: pointer; }
+.status-box.is-listening:active { transform: scale(0.98); }
+.status-box { background-size: cover; background-position: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+/* Snowflake particles */
+.snow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.snowflake {
+    position: absolute; bottom: -150px;
+    color: rgba(200, 230, 255, 0.3);
+    animation: snowDrift linear infinite;
+    user-select: none;
+}
+@keyframes snowDrift {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    5%   { opacity: 1; }
+    50%  { transform: translateY(-55vh) translateX(25px) rotate(180deg); }
+    95%  { opacity: 0.4; }
+    100% { transform: translateY(-115vh) translateX(-15px) rotate(360deg); opacity: 0; }
+}
+
+html, body { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+.selectable { -webkit-user-select: text; user-select: text; pointer-events: auto; }
