@@ -64,8 +64,6 @@ function updateClock() {
 // Pas deze lijst aan met je eigen foto's!
 const galleryImages = [
     "./assets/images/byte-dark.jpg",
-    "./assets/images/20260319_131059_0000.png",
-    "./assets/images/20260319-125301_0000.png",
     "./assets/images/byte-camera.jpg",
     "./assets/images/byte-flex-jpg",
     "./assets/images/byte-room.jpg" 
@@ -100,7 +98,7 @@ const thoughtList = [
     "\"QUIET & cozy is not just a vibe, it's a lifestyle.\"", // Quote 2
     "\"Sometimes the best adventures happen without moving at all.\"", // Quote 3
     "\"expert at doing nothing. Also good at being shy.\"", // Quote 4
-    "\"gmt+1: De tijdzone waar cozy cream altijd cozy is.\"" // Quote 5
+    "\"What else can i do?\"" // Quote 5
 ];
 let currentThoughtIndex = 0;
 const quoteTarget = document.getElementById('quote-target');
