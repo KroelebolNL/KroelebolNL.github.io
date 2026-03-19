@@ -201,12 +201,20 @@ function switchBackgroundAnimation(type) {
     const snowContainer = document.getElementById('snow-container');
 
     if (type === 'snow') {
-        bubbleContainer.style.display = 'none';
-        snowContainer.style.display = 'block';
-        createSnowflakes(); // Voegt sneeuwvlokken toe als ze er nog niet zijn
+        // Schakel Byte's bubbels uit
+        if (bubbleContainer) bubbleContainer.style.display = 'none';
+        
+        // Schakel Squeakers sneeuw in
+        if (snowContainer) {
+            snowContainer.style.display = 'block';
+            createSnowflakes(); // Voegt sneeuwvlokken toe als ze er nog niet zijn
+        }
     } else {
-        bubbleContainer.style.display = 'block';
-        snowContainer.style.display = 'none';
+        // Schakel Byte's bubbels in
+        if (bubbleContainer) bubbleContainer.style.display = 'block';
+        
+        // Schakel Squeakers sneeuw uit
+        if (snowContainer) snowContainer.style.display = 'none';
     }
 }
 
