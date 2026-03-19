@@ -75,7 +75,7 @@ function updateClock() {
 const galleryImages = [
     "./assets/images/byte-dark.jpg",
     "./assets/images/byte-camera.jpg",
-    "./assets/images/byte-flex-jpg",
+    "./assets/images/byte-flex.jpg",
     "./assets/images/byte-room.jpg" 
 ];
 let currentGalleryIndex = 0;
