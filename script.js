@@ -104,11 +104,26 @@ function cycleGallery() {
 // --- 3. NIEUW: THOUGHTS CYCLE ---
 // Pas deze lijst aan met je favoriete quotes of gedachten!
 const thoughtList = [
-    "\"Staying in my own little bubble, where the stars shine a bit brighter.\"", // Quote 1
-    "\"QUIET & cozy is not just a vibe, it's a lifestyle.\"", // Quote 2
-    "\"Sometimes the best adventures happen without moving at all.\"", // Quote 3
-    "\"expert at doing nothing. Also good at being shy.\"", // Quote 4
-    "\"What else can i do?\"" // Quote 5
+    "\"Silence is not empty, it's full of answers.\"",
+    "\"Collect moments, not things.\"",
+    "\"Protect your peace like it’s a physical treasure.\"",
+    "\"Normality is a paved road: comfortable to walk, but no flowers grow on it.\"",
+    "\"The soul usually knows what to do to heal itself. The challenge is to silence the mind.\"",
+    "\"Everything you’ve ever wanted is on the other side of fear.\"",
+    "\"Don't decrease the goal, increase the effort.\"",
+    "\"Growth is uncomfortable because you’ve never been here before.\"",
+    "\"Be the person you needed when you were younger.\"",
+    "\"Your direction is more important than your speed.\"",
+    "\"If you think you are too small to make a difference, try sleeping with a mosquito.\"",
+    "\"Life is short. Smile while you still have teeth.\"",
+    "\"Reality is a nice place, but I wouldn't want to live there.\"",
+    "\"Be yourself; everyone else is already taken.\"",
+    "\"I’m not lazy, I’m just on energy saving mode.\"",
+    "\"We suffer more often in imagination than in reality.\"",
+    "\"The sun is a daily reminder that we too can rise again from the darkness.\"",
+    "\"To live is the rarest thing in the world. Most people exist, that is all.\"",
+    "\"You cannot pour from an empty cup. Take care of yourself first.\"",
+    "\"In a world where you can be anything, be kind.\""
 ];
 let currentThoughtIndex = 0;
 const quoteTarget = document.getElementById('quote-target');
