@@ -76,7 +76,9 @@ const galleryImages = [
     "./assets/images/byte-dark.jpg",
     "./assets/images/byte-camera.jpg",
     "./assets/images/byte-flex.jpg",
-    "./assets/images/byte-room.jpg" 
+    "./assets/images/byte-mirror.jpg",
+    "./assets/images/byte-fire.jpg",
+    "./assets/images/byte-room.jpg"
 ];
 let currentGalleryIndex = 0;
 const galleryTarget = document.getElementById('gallery-target');
