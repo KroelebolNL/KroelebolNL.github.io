@@ -1,77 +1,47 @@
-/**
- * Asynchronous integration with the Lanyard API for Discord Status tracking.
- * Requires the user to join the Lanyard Discord server.
- */
-
-// The Discord ID must be replaced with the user's actual 18-digit Discord ID
 const DISCORD_USER_ID = "416887610233847820"; 
-const LANYARD_API_URL = `https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`;
+const LANYARD_URL = `https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`;
 
-// DOM Element Selectors
-const statusTextElement = document.getElementById('discord-status-text');
-const statusDotElement = document.getElementById('status-dot');
-
-/**
- * Fetches data from the Lanyard REST API and updates the UI
- */
-async function fetchDiscordStatus() {
+async function updateStatus() {
     try {
-        const response = await fetch(LANYARD_API_URL);
+        const response = await fetch(LANYARD_URL);
         const data = await response.json();
 
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('discord-status-text');
+        const label = document.getElementById('status-label');
+
+        // Check of de user überhaupt gevolgd wordt door Lanyard
+        if (data.error && data.error.code === "user_not_monitored") {
+            text.textContent = "Server fix needed";
+            label.textContent = "Join Lanyard Discord Server";
+            dot.style.backgroundColor = "#ff4747"; // Rood voor error
+            return;
+        }
+
         if (data.success) {
-            const presence = data.data;
-            updateStatusUI(presence);
-        } else {
-            console.warn("Lanyard API returned unsuccessful status. User may not be in the server.");
+            const status = data.data.discord_status;
+            const colors = {
+                online: '#43b581',
+                idle: '#faa61a',
+                dnd: '#f04747',
+                offline: '#747f8d'
+            };
+
+            dot.style.backgroundColor = colors[status] |
+
+| colors.offline;
+            dot.style.boxShadow = `0 0 15px ${colors[status]}`;
+            label.textContent = status.toUpperCase();
+
+            // Custom status check
+            const custom = data.data.activities.find(a => a.type === 4);
+            text.textContent = custom? `"${custom.state}"` : "Expert at doing nothing.";
         }
-    } catch (error) {
-        console.error("Failed to fetch Discord status:", error);
+    } catch (e) {
+        console.error("Lanyard error:", e);
     }
 }
 
-/**
- * Updates the text and color indicators based on Discord presence data
- * @param {Object} presence - The data object returned from Lanyard
- */
-function updateStatusUI(presence) {
-    // 1. Update the Status Dot Color
-    const statusColors = {
-        online: '#43b581',    // Discord Green
-        idle: '#faa61a',      // Discord Yellow
-        dnd: '#f04747',       // Discord Red
-        offline: '#747f8d'    // Discord Grey
-    };
-    
-    const currentStatusColor = statusColors[presence.discord_status] |
-
-| statusColors.offline;
-    statusDotElement.style.backgroundColor = currentStatusColor;
-    statusDotElement.style.boxShadow = `0 0 12px ${currentStatusColor}`;
-
-    // 2. Update the Text based on Custom Status or Activity
-    // If the user has a custom status set in Discord, display it
-    if (presence.activities && presence.activities.length > 0) {
-        const customStatus = presence.activities.find(activity => activity.type === 4);
-        
-        if (customStatus && customStatus.state) {
-            statusTextElement.textContent = `"${customStatus.state}"`;
-            return; // Exit function early if custom status is found
-        }
-    }
-
-    // Default Fallback Text if no custom status is active
-    if (presence.discord_status === 'offline') {
-        statusTextElement.textContent = "Sleeping... expert at doing nothing.";
-    } else {
-        statusTextElement.textContent = "Expert at doing nothing.";
-    }
-}
-
-// Initialize the fetch sequence on page load
-document.addEventListener('DOMContentLoaded', () => {
-    fetchDiscordStatus();
-    
-    // Optional: Set an interval to poll the API every 30 seconds for live updates
-    setInterval(fetchDiscordStatus, 30000);
-});
+// Initial check & interval
+updateStatus();
+setInterval(updateStatus, 15000);
