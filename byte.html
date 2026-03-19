@@ -6,29 +6,38 @@
     <title>Byte ⊹ Bubble</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-name-link { text-decoration: none; color: inherit; display: block; transition: opacity 0.2s; }
+        .profile-name-link:hover { opacity: 0.75; }
+        .home-hint {
+            display: block; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 2px; color: var(--accent-glow);
+            text-transform: uppercase; margin-top: 2px;
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .profile-name-link:hover .home-hint { opacity: 1; }
+    </style>
 </head>
 <body>
     <div class="bubble-container">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
+        <div class="bubble"></div><div class="bubble"></div>
+        <div class="bubble"></div><div class="bubble"></div>
     </div>
-
     <main class="bento-grid">
         <article class="bento-box profile-box glass">
             <img src="./assets/images/byte-sunset.jpg" alt="Byte" class="profile-img">
             <div class="profile-text">
-                <h1>BYTE</h1>
+                <a href="./index.html" class="profile-name-link">
+                    <h1>BYTE</h1>
+                    <span class="home-hint">← back to switcher</span>
+                </a>
                 <p class="pronouns">HE/HIM ⊹ GMT+1</p>
             </div>
         </article>
-
         <article class="bento-box bio-box glass">
             <h2>🫧 Vibe</h2>
             <p>Quiet & cozy. Staying in my own little bubble.</p>
         </article>
-
         <article class="bento-box status-box glass">
             <h2>🍃 Status</h2>
             <p id="discord-status-text">Checking Discord...</p>
@@ -37,28 +46,25 @@
                 <span id="status-label" class="subtext">Offline</span>
             </div>
         </article>
-
         <article class="bento-box gallery-box glass">
             <img src="./assets/images/byte-dark.jpg" alt="Gallery" class="gallery-img" id="gallery-target">
         </article>
-
         <article class="bento-box socials-box glass">
             <h2>🧸 Socials</h2>
             <div class="link-buttons">
                 <a href="#" class="social-btn"><span class="icon">💬</span> Discord</a>
                 <a href="#" class="social-btn"><span class="icon">💻</span> GitHub</a>
                 <a href="#" class="social-btn"><span class="icon">🐦</span> Twitter</a>
-                <a href="#" class="social-btn"><span class="icon">📱</span> Tiktok</a> <a href="#" class="social-btn"><span class="icon">📺</span> YouTube</a>
+                <a href="#" class="social-btn"><span class="icon">📱</span> Tiktok</a>
+                <a href="#" class="social-btn"><span class="icon">📺</span> YouTube</a>
                 <a href="#" class="social-btn"><span class="icon">🎮</span> Steam</a>
             </div>
         </article>
-
         <article class="bento-box quotes-box glass">
             <h2>💭 Thoughts</h2>
             <p class="quote-text" id="quote-target">"Staying in my own little bubble, where the stars shine a bit brighter."</p>
             <p class="subtext">— Byte</p>
         </article>
-
         <article class="bento-box extra-box glass">
             <h2>🌍 Local Time</h2>
             <div class="time-container">
@@ -68,7 +74,6 @@
             <p class="subtext">Amsterdam, NL (GMT+1)</p>
         </article>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
