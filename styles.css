@@ -3,7 +3,7 @@
     --glass-bg: rgba(60, 50, 55, 0.45);
     --glass-border: rgba(255, 255, 255, 0.08);
     --accent-glow: #C774E8;
-    --text-primary: #F2E8D2; /* Cozy Cream */
+    --text-primary: #F2E8D2;
     --text-muted: #A59EAD;
 }
 
@@ -22,6 +22,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Bento Grid Setup */
 .bento-grid {
     display: grid;
     gap: 1.5rem;
@@ -32,20 +33,21 @@ body {
 }
 
 @media (min-width: 768px) {
-   .bento-grid {
+    .bento-grid {
         grid-template-columns: repeat(3, 1fr);
         grid-template-areas: 
             "profile profile bio"
             "profile profile status"
             "gallery socials socials";
     }
-   .profile-box { grid-area: profile; }
-   .bio-box { grid-area: bio; }
-   .status-box { grid-area: status; }
-   .socials-box { grid-area: socials; }
-   .gallery-box { grid-area: gallery; }
+    .profile-box { grid-area: profile; }
+    .bio-box { grid-area: bio; }
+    .status-box { grid-area: status; }
+    .socials-box { grid-area: socials; }
+    .gallery-box { grid-area: gallery; }
 }
 
+/* Glassmorphism */
 .glass {
     background: var(--glass-bg);
     border-radius: 32px;
@@ -55,6 +57,7 @@ body {
     border: 1px solid var(--glass-border);
     box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
 }
 
 .glass:hover {
@@ -63,59 +66,75 @@ body {
     box-shadow: 0 0 25px rgba(199, 116, 232, 0.2);
 }
 
-.profile-img,.gallery-img {
-    width: 100%;
-    border-radius: 20px;
-    object-fit: cover;
-}
-
+/* Images */
 .profile-img { 
     height: 280px; 
     width: 100%;
     border-radius: 20px; 
-    margin-bottom: 1.5rem; 
     object-fit: cover;
-    /* --- DIT IS DE FIX --- */
-    object-position: center 0%; /* Schuift de afbeelding omhoog (gezicht in beeld) */
+    object-position: center 0%; /* Zorgt dat het gezicht goed staat */
+    margin-bottom: 1.5rem;
 }
 
-/* De gallery foto mag vaak wel gewoon in het midden blijven */
-.gallery-img { 
-    height: 100%; 
-    min-height: 180px; 
-    object-fit: cover;
-    object-position: center;
+.gallery-img { height: 100%; width: 100%; object-fit: cover; border-radius: 20px; }
+
+/* Status & Animatie */
+#discord-status-text {
+    transition: opacity 0.4s ease;
+    margin-bottom: 5px;
 }
 
-h1 { font-size: 3rem; font-weight: 900; color: var(--text-primary); }
-h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.fade-out { opacity: 0; }
 
 .status-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+
 .status-indicator {
     width: 12px; height: 12px;
     border-radius: 50%;
-    background: #747f8d;
-    box-shadow: 0 0 10px #747f8d;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.4s ease;
+    animation: pulse-glow 2s infinite ease-in-out;
 }
 
-.link-buttons { display: flex; gap: 10px; margin-top: 15px; }
+@keyframes pulse-glow {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Social Buttons Upgrade */
+.link-buttons { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 12px; 
+    margin-top: 20px; 
+}
+
 .social-btn {
-    flex: 1;
-    background: rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
     color: var(--text-primary);
     text-decoration: none;
-    padding: 12px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 0.9rem;
+    padding: 15px 5px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 700;
     border: 1px solid var(--glass-border);
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
-.social-btn:hover { background: var(--accent-glow); color: #fff; }
 
-/* Bubbels: Trager en groter */
+.social-btn:hover {
+    background: rgba(199, 116, 232, 0.15);
+    border-color: var(--accent-glow);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.social-btn .icon { font-size: 1.3rem; }
+
+/* Bubbels */
 .bubble {
     position: absolute;
     bottom: -150px;
@@ -136,3 +155,6 @@ h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 8px; text-tran
     90% { opacity: 0.5; }
     100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
+
+h1 { font-size: 3rem; font-weight: 900; }
+h2 { font-size: 1.1rem; color: var(--accent-glow); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
