@@ -1,9 +1,178 @@
-<style>
-  body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYTE ⊹ Quiet & Cozy Bubble</title>
+  
+  <link rel="icon" type="image/png" href="profielfoto.png">
 
-<h1>Hallo wereld!</h1>
-<p>Dit is mijn allereerste website op GitHub.</p>
+  <style>
+    /* -----------------------------------------------------------
+       1. BASIS STIJL & ACHTERGROND (uit foto 1 gehaald)
+       ----------------------------------------------------------- */
+    body {
+      /* Achtergrondafbeelding van de zonsondergang */
+      background-image: url('achtergrond.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      
+      /* Donkere overlay voor betere leesbaarheid tekst */
+      background-color: #121212; /* Zeer donkergrijs base */
+      color: #E0E0E0; /* Zacht wit voor de tekst */
+      
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* -----------------------------------------------------------
+       2. DE "BUBBLE" CONTAINER (het middenblok)
+       ----------------------------------------------------------- */
+    .bubble-container {
+      /* Het "Little Bubble" idee: glassmorphism effect */
+      background: rgba(0, 0, 0, 0.75); /* Donkere basis, half-doorzichtig */
+      backdrop-filter: blur(10px); /* Vervaagt de achtergrond achter het blok */
+      -webkit-backdrop-filter: blur(10px);
+      
+      width: 100%;
+      max-width: 480px;
+      padding: 50px 30px;
+      border-radius: 40px; /* Mooie grote ronde hoeken */
+      border: 1px solid rgba(255, 255, 255, 0.1); /* Zachte glow rand */
+      box-shadow: 0 10px 40px rgba(156, 39, 176, 0.3); /* Subtiele paarse schaduw glow */
+      text-align: center;
+    }
+
+    /* -----------------------------------------------------------
+       3. PROFIEL SECTIE (uit foto 2 gehaald)
+       ----------------------------------------------------------- */
+    .profile-pic {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%; /* Maakt het een cirkel */
+      object-fit: cover;
+      
+      /* Pastelroze border en glow (uit de lucht getrokken) */
+      border: 4px solid #D194C1; 
+      box-shadow: 0 0 20px rgba(209, 148, 193, 0.6); 
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 2.6em;
+      margin: 0;
+      color: #FFFFFF;
+      letter-spacing: 2px;
+      /* Subtiele paarse glow voor de naam */
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.8); 
+    }
+
+    .info-line {
+      margin-top: 5px;
+      color: rgba(224, 224, 224, 0.8);
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    /* -----------------------------------------------------------
+       4. VIBE TAGS & QUOTE (jouw tekst)
+       ----------------------------------------------------------- */
+    .vibe-tags {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      /* Subtiel donkerpaars background */
+      background: rgba(156, 39, 176, 0.2); 
+      color: #D194C1; /* Pastelroze tekst */
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      border: 1px solid rgba(156, 39, 176, 0.5);
+    }
+
+    .main-quote {
+      font-style: italic;
+      margin: 35px 0;
+      font-size: 1.25em;
+      color: #FFFFFF;
+      opacity: 0.95;
+      text-shadow: 0 0 5px rgba(209, 148, 193, 0.5);
+    }
+
+    /* -----------------------------------------------------------
+       5. LINKS / KNOPPEN SECTIE
+       ----------------------------------------------------------- */
+    .links-section {
+      margin-top: 45px;
+    }
+
+    .socials-intro {
+      color: rgba(224, 224, 224, 0.6);
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+
+    .link-btn {
+      display: block;
+      /* Knop stijl: donker base met zachte glow */
+      background: linear-gradient(135deg, rgba(30, 30, 30, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 18px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(209, 148, 193, 0.3); /* Pastelroze randje */
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+    }
+
+    /* Hover effect: oplichten in paars/roze */
+    .link-btn:hover {
+      transform: translateY(-3px); /* Beweegt een beetje omhoog */
+      border-color: #D194C1; /* Randje wordt feller */
+      box-shadow: 0 5px 20px rgba(156, 39, 176, 0.5); /* Paarse glow eromheen */
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.3) 0%, rgba(10, 10, 10, 0.9) 100%);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="bubble-container">
+    
+    <img src="profielfoto.png" alt="Byte Avatar" class="profile-pic">
+    <h1>BYTE</h1>
+    <p class="info-line">He/Him ⊹ GMT+1</p>
+    
+    <div class="vibe-tags">
+      <span class="tag">quiet & cozy</span>
+      <span class="tag">expert at doing nothing</span>
+    </div>
+    
+    <p class="main-quote">“staying in my own little bubble”</p>
+    
+    <div class="links-section">
+      <p class="socials-intro">Socials: just a bit shy (maar hier zijn wat links):</p>
+      
+      <a href="#" target="_blank" class="link-btn">Discord Server</a>
+      <a href="#" target="_blank" class="link-btn">Twitter / X</a>
+      <a href="#" target="_blank" class="link-btn">YouTube</a>
+      <a href="#" target="_blank" class="link-btn">Instagram (Art?)</a>
+      
+    </div>
+  </div>
+
+</body>
+</html>
