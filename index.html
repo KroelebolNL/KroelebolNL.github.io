@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Hub</title>
+    <title>Profile Hub | Byte & Squeakers</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="bubble-container">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
+    <div id="background-animation-container">
+        <div class="bubble-container" id="bubble-container">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        <div class="snow-container" id="snow-container" style="display: none;"></div>
     </div>
 
     <button id="profile-toggle" class="glass toggle-btn">
@@ -70,7 +73,7 @@
                 <div class="main-time" id="clock-24">00:00</div>
                 <div class="sub-time" id="clock-12">00:00 AM</div>
             </div>
-            <p class="subtext">Amsterdam, NL (GMT+1)</p>
+            <p class="subtext" id="location-text">Amsterdam, NL (GMT+1)</p>
         </article>
     </main>
 
