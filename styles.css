@@ -40,6 +40,12 @@ body {
     grid-template-columns: 1fr;
 }
 
+.gallery-box {
+    padding: 0 !important; /* Haalt de padding weg zodat de foto de rand raakt */
+    overflow: hidden;      /* Zorgt dat de foto binnen de ronde hoeken blijft */
+    display: flex;         /* Verwijdert witruimte onder de afbeelding */
+}
+
 @media (min-width: 768px) {
     .bento-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -84,8 +90,13 @@ body {
     object-fit: cover; object-position: center 20%; margin-bottom: 1.5rem;
 }
 .gallery-img { 
-    height: 100%; width: 100%; object-fit: cover; border-radius: 20px; min-height: 300px; 
-    transition: opacity 0.5s ease; /* NIEUW: Voor vloeiende slideshow */
+    height: 100%; 
+    width: 100%; 
+    object-fit: cover; 
+    border-radius: 0;      /* We gebruiken de border-radius van de box zelf nu */
+    min-height: 300px; 
+    transition: opacity 0.5s ease;
+    transform: scale(1.01); /* Een piepkleine zoom om dat witte lijntje te overlappen */
 }
 
 /* TYPOGRAPHY */
