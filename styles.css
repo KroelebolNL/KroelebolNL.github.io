@@ -1,0 +1,175 @@
+/* Base Reset and Variables */
+:root {
+    --bg-color: #1A1820;
+    --glass-bg: rgba(43, 37, 54, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-glow: rgba(199, 116, 232, 0.6);
+    --text-primary: #F8F9FA;
+    --text-muted: #A59EAD;
+    --font-main: 'Nunito', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    /* Subtle radial gradient to mimic sunset/ambient room lighting */
+    background-image: radial-gradient(circle at 50% 0%, #2a1f33 0%, var(--bg-color) 70%);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    overflow-x: hidden;
+}
+
+/* 
+   =========================================
+   THE BENTO GRID ARCHITECTURE
+   =========================================
+*/
+.bento-grid {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+    z-index: 10; /* Ensures grid sits above background bubbles */
+    /* Mobile First: Single column layout */
+    grid-template-columns: 1fr; 
+}
+
+/* Tablet and Desktop Grid Mapping */
+@media (min-width: 768px) {
+   .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(150px, auto);
+        /* Explicitly defining the Bento layout areas */
+        grid-template-areas: 
+            "profile profile bio"
+            "profile profile status"
+            "gallery socials socials";
+    }
+    
+   .profile-box { grid-area: profile; }
+   .bio-box { grid-area: bio; }
+   .status-box { grid-area: status; }
+   .socials-box { grid-area: socials; }
+   .gallery-box { grid-area: gallery; }
+}
+
+/* 
+   =========================================
+   GLASSMORPHISM IMPLEMENTATION
+   =========================================
+*/
+.glass {
+    background: var(--glass-bg);
+    border-radius: 24px; /* Soft, cozy rounded corners */
+    padding: 2rem;
+    /* The core frosted glass effect */
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border-top: 1px solid var(--glass-border);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), 0 0 20px 0 var(--accent-glow);
+}
+
+/* Internal Typography and Content Styling */
+h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; }
+h2 { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+p { font-size: 1.1rem; line-height: 1.5; }
+.pronouns { color: var(--accent-glow); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; }
+.subtext { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+/* Image Handling */
+.profile-img,.gallery-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+}
+.gallery-img { height: 100%; margin-bottom: 0; }
+
+/* Interactive Social Buttons */
+.link-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.social-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s ease;
+}
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-glow);
+}
+
+/* 
+   =========================================
+   FLUID DYNAMICS: BACKGROUND BUBBLES
+   =========================================
+*/
+.bubble-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    overflow: hidden;
+    z-index: 1; /* Sits behind the Bento Grid */
+    pointer-events: none; /* Prevents bubbles from blocking clicks */
+}
+
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+    animation: floatUp infinite ease-in;
+}
+
+/* Generating varied bubble sizes and animation delays */
+.bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-duration: 8s; animation-delay: 0s; }
+.bubble:nth-child(2) { width: 150px; height: 150px; left: 25%; animation-duration: 12s; animation-delay: 2s; }
+.bubble:nth-child(3) { width: 50px; height: 50px; left: 45%; animation-duration: 6s; animation-delay: 4s; }
+.bubble:nth-child(4) { width: 120px; height: 120px; left: 65%; animation-duration: 10s; animation-delay: 1s; }
+.bubble:nth-child(5) { width: 90px; height: 90px; left: 85%; animation-duration: 9s; animation-delay: 3s; }
+.bubble:nth-child(6) { width: 60px; height: 60px; left: 55%; animation-duration: 7s; animation-delay: 5s; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+}
+
+/* Dynamic Status Dot Indicator */
+.status-indicator {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background-color: #747f8d; /* Default Offline Grey */
+    margin-top: 1rem;
+    box-shadow: 0 0 10px #747f8d;
+}
