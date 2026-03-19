@@ -1,4 +1,5 @@
 const DISCORD_USER_ID = "416887610233847820"; 
+// LET OP: Gebruik hieronder de backticks (onder de Esc-toets)
 const LANYARD_URL = `https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`;
 
 async function updateStatus() {
@@ -10,11 +11,11 @@ async function updateStatus() {
         const text = document.getElementById('discord-status-text');
         const label = document.getElementById('status-label');
 
-        // Check of de user überhaupt gevolgd wordt door Lanyard
+        // Check of Lanyard de user al volgt
         if (data.error && data.error.code === "user_not_monitored") {
             text.textContent = "Server fix needed";
             label.textContent = "Join Lanyard Discord Server";
-            dot.style.backgroundColor = "#ff4747"; // Rood voor error
+            dot.style.backgroundColor = "#ff4747"; 
             return;
         }
 
@@ -27,13 +28,15 @@ async function updateStatus() {
                 offline: '#747f8d'
             };
 
-            dot.style.backgroundColor = colors[status] |
+            // Hier stond eerst een fout met een afgebroken regel
+            const currentColor = colors[status] |
 
 | colors.offline;
-            dot.style.boxShadow = `0 0 15px ${colors[status]}`;
+            dot.style.backgroundColor = currentColor;
+            dot.style.boxShadow = `0 0 15px ${currentColor}`;
             label.textContent = status.toUpperCase();
 
-            // Custom status check
+            // Custom status check (bijv. "Vibing in my bubble")
             const custom = data.data.activities.find(a => a.type === 4);
             text.textContent = custom? `"${custom.state}"` : "Expert at doing nothing.";
         }
@@ -42,6 +45,7 @@ async function updateStatus() {
     }
 }
 
-// Initial check & interval
+// Start de check
 updateStatus();
+// Ververs elke 15 seconden
 setInterval(updateStatus, 15000);
