@@ -1,199 +1,59 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BYTE ⊹ Void Terminal</title>
-  <link rel="icon" type="image/png" href="VRChat_2026-03-18_22-10-54.869_2160x3840.png">
-  
-  <style>
-    /* -----------------------------------------------------------
-       1. BASIS STIJL (Minimal Void)
-       ----------------------------------------------------------- */
-    body {
-      background-color: #000000; /* Deep Void Black */
-      color: #FFFFFF;
-      font-family: 'Courier New', Courier, monospace; /* Monospace voor tech vibe */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* Verbergt scrollbar voor strakke look */
-    }
-
-    /* -----------------------------------------------------------
-       2. DE HOOFDPANEEL (Geometric Void)
-       ----------------------------------------------------------- */
-    .void-panel {
-      background: #0A0A0A; /* Iets lichter zwart paneel */
-      width: 100%;
-      max-width: 480px;
-      height: auto;
-      padding: 60px 40px;
-      border-radius: 5px; /* Heel subtiel afgerond, bijna strak */
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      position: relative;
-      text-align: center;
-      box-shadow: 0 0 50px rgba(138, 43, 226, 0.3); /* Subtiele electric paarse glow */
-    }
-
-    /* Geometrische hoek detail */
-    .void-panel::after {
-      content: '';
-      position: absolute;
-      bottom: -15px;
-      right: -15px;
-      width: 30px;
-      height: 30px;
-      background: #CC00FF; /* Electric Magenta */
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    }
-
-    /* -----------------------------------------------------------
-       3. PROFIEL SECTIE (Geometric Mask)
-       ----------------------------------------------------------- */
-    .profile-frame {
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 30px;
-      position: relative;
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Hexagon mask */
-      background-image: url('achtergrond.png');
-      background-size: cover;
-      background-position: center;
-    }
-
-    .profile-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.9; /* Iets minder dominant */
-    }
-
-    /* Scherpe frame overlay */
-    .profile-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      border: 4px solid #CC00FF; /* Electric Magenta edge */
-      box-sizing: border-box;
-      pointer-events: none; /* Kan er doorheen klikken */
-    }
-
-    h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #FFFFFF;
-      letter-spacing: 4px;
-      text-shadow: 0 0 15px rgba(204, 0, 255, 0.7); /* Electric Magenta glow */
-    }
-
-    .info-subtitle {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9em;
-      margin: 5px 0 35px;
-    }
-
-    /* -----------------------------------------------------------
-       4. TAGS & QUOTE (Strakke Labels)
-       ----------------------------------------------------------- */
-    .tags {
-      margin-bottom: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .tag-strak {
-      color: #CC00FF; /* Electric Magenta */
-      background: transparent;
-      padding: 5px 15px;
-      border: 1px solid rgba(204, 0, 255, 0.3);
-      font-size: 0.85em;
-      font-weight: bold;
-    }
-
-    .quote-strak {
-      font-style: italic;
-      margin: 35px 0 50px;
-      font-size: 1.4em;
-      color: #FFFFFF;
-      opacity: 0.9;
-      letter-spacing: 1px;
-    }
-
-    /* -----------------------------------------------------------
-       5. LINKS SECTION (Geometric Buttons)
-       ----------------------------------------------------------- */
-    .link-strak-btn {
-      display: block;
-      background-color: black;
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 2px; /* Heel strak */
-      border: 1px solid rgba(204, 0, 255, 0.2);
-      font-weight: bold;
-      font-size: 1.1em;
-      transition: all 0.2s ease-in-out;
-      text-align: left; /* Links uitlijnen */
-      position: relative;
-    }
-
-    /* Geometric corner detail op knop */
-    .link-strak-btn::after {
-      content: '►';
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: rgba(204, 0, 255, 0.4);
-    }
-
-    /* Hover effect: oplichten en border veranderen */
-    .link-strak-btn:hover {
-      border-color: #CC00FF;
-      background: linear-gradient(135deg, rgba(204, 0, 255, 0.2) 0%, rgba(10, 10, 10, 1) 100%);
-      transform: scale(1.02); /* Iets oplichten */
-    }
-
-    .link-strak-btn:hover::after {
-      color: #CC00FF; /* Arrow wordt feller */
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte ⊹ Staying in my own little bubble</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <div class="void-panel">
-    
-    <div class="profile-frame">
-      <img src="profielfoto.png" alt="Byte Avatar">
-      <div class="profile-overlay"></div> </div>
-    
-    <h1>BYTE</h1>
-    <p class="info-subtitle">He/Him ⊹ GMT+1</p>
-    
-    <div class="tags">
-      <span class="tag-strak">[ quiet & cozy ]</span>
-      <span class="tag-strak">[ expert at doing nothing ]</span>
-      <span class="tag-strak">[ just a bit shy ]</span>
+    <div class="bubble-container">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
     </div>
-    
-    <p class="quote-strak">“staying in my own little bubble”</p>
-    
-    <a href="#" target="_blank" class="link-strak-btn">DISCORD SERVER</a>
-    <a href="#" target="_blank" class="link-strak-btn">TWITTER / X</a>
-    <a href="#" target="_blank" class="link-strak-btn">YOUTUBE</a>
-    <a href="#" target="_blank" class="link-strak-btn">INSTAGRAM (ART?)</a>
-    
-  </div>
 
+    <main class="bento-grid">
+        
+        <article class="bento-box profile-box glass">
+            <img src="./assets/images/byte-sunset.jpg" alt="Byte the Fursona looking back in a sunset field" class="profile-img">
+            <div class="profile-text">
+                <h1>BYTE</h1>
+                <p class="pronouns">HE/HIM ⊹ GMT+1</p>
+            </div>
+        </article>
+
+        <article class="bento-box bio-box glass">
+            <h2>🫧 Vibe</h2>
+            <p>Quiet & cozy. Staying in my own little bubble.</p>
+        </article>
+
+        <article class="bento-box status-box glass" id="discord-status-container">
+            <h2>🍃 Fact</h2>
+            <p id="discord-status-text">Expert at doing nothing.</p>
+            <div class="status-indicator" id="status-dot"></div>
+        </article>
+
+        <article class="bento-box socials-box glass">
+            <h2>🧸 Socials</h2>
+            <p class="subtext">Just a bit shy...</p>
+            <div class="link-buttons">
+                <a href="https://discord.com" class="social-btn">Discord</a>
+                <a href="https://github.com" class="social-btn">GitHub</a>
+                <a href="https://twitter.com" class="social-btn">Twitter</a>
+            </div>
+        </article>
+
+        <article class="bento-box gallery-box glass">
+            <img src="./assets/images/byte-dark.jpg" alt="Byte in an ambient lit room" class="gallery-img">
+        </article>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
